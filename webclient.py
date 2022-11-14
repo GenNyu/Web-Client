@@ -11,4 +11,11 @@ def create_connection():
     print(data)
 create_connection.close()
 
+def manager_connection():
+    try:
+        create_connection()
+    except:
+        print("Error: server is not responding")
+        
+manager_connection.close()
 
