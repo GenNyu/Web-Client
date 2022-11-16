@@ -7,7 +7,7 @@ def create_connection():
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     request = f"GET / HTTP/1.0\r\nHost: {HOST} \r\n\r\n"
     client.send(request.encode())
-    data = client.recv(10000)
+    data = client.recv(10000).decode()
     print(data)
 create_connection.close()
 
