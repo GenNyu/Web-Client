@@ -1,21 +1,19 @@
 import socket
+from os import error
 
-HOST = "127.0.0.1"  # IP adress server
-PORT = 80        # port is used by the server
+HOST = input('Enter the addr: ')
+PORT = 80
 
-def create_connection():
-    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    request = f"GET / HTTP/1.0\r\nHost: {HOST} \r\n\r\n"
-    client.send(request.encode())
-    data = client.recv(10000).decode()
-    print(data)
-create_connection.close()
+client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+try:
+    client.connect((HOST, PORT))
+    print(f'* Running on http://{HOST}:{PORT}')
+except socket.error as e:
+    print(f'socket error: {e}')
+request = f"GET / HTTP/1.0\r\nHost: {HOST}\r\n\r\n"
+client.send(request.encode())
+data = client.recv(10000).decode()
+print(data)
 
-def manager_connection():
-    try:
-        create_connection()
-    except:
-        print("Error: server is not responding")
-        
-manager_connection.close()
 
+client.close()
